@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="logInFileTrace" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="/users/whs00000/log/logInFile.log" />
+		<param name="encoding" value="UTF8" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p %c - %m%n" />
+		</layout>
+	</appender>
+
+
+	<appender name="ConsoleOut" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %5p (%c:%L) - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ConsoleErr" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.err" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %5p (%c:%L) - %m%n" />
+		</layout>
+		<!--
+			<filter class="org.apache.log4j.varia.LevelRangeFilter"> <param
+			name="levelMin" value="WARN" /> <param name="levelMax" value="FATAL"
+			/> </filter>
+		-->
+	</appender>
+	
+	<appender name="LogSoap" class="org.apache.log4j.RollingFileAppender">
+         <param name="file" value=" /users/whs00000/log/logSoap.log" />
+         <param name="encoding" value="UTF8" />
+         <param name="MaxFileSize" value="5MB" />
+         <layout class="org.apache.log4j.PatternLayout">
+                         <param name="ConversionPattern" value="%d [%t] %-5p %c - %m%n" />
+         </layout>
+    </appender>
+
+
+	<logger name="httpclient.wire.header" additivity="true">
+             <appender-ref ref="LogSoap"/>           
+             <level value="DEBUG" />
+
+       </logger>
+       
+       <logger name="httpclient.wire.content" additivity="true">
+             
+             
+             <appender-ref ref="LogSoap"/>           
+             <level value="DEBUG" />
+
+       </logger>
+
+	<logger name="org.springframework.security" additivity="true">
+		<level value="DEBUG"/>
+		<appender-ref ref="ConsoleOut"/> 
+		<appender-ref ref="logInFileTrace" />
+	</logger>
+	
+	<!-- LOGGERS  -->
+	<!--
+		Print only messages of level ERROR or above in the package noModule.
+	-->
+	<logger name="noModule" additivity="true">
+		<level value="FATAL" />
+	</logger>
+
+	<!-- OpenSymphony -->
+	<logger name="com.opensymphony" additivity="true">
+		<level value="OFF" />
+	</logger>
+
+	<!-- Struts2 -->
+	<logger name="org.apache.struts2" additivity="true"></logger>
+
+	<logger name="org.apache.struts2.components" additivity="true">
+	</logger>
+
+	<logger name="ognl" additivity="true">
+		<level value="OFF" />
+	</logger>
+
+	<!-- Spring -->
+	
+		<!-- logger name="org.springframework" additivity="true" > <level
+		value="DEBUG"/> <appender-ref ref="ConsoleOut"/> </logger -->
+	 <!-- FWK  -->
+	<!-- context Loader -->
+	<logger name="com.inetpsa.fwk.v3.web.context.support"
+		additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="ConsoleOut" />
+	</logger>
+	<logger name="com.inetpsa.fwk.v3.context" additivity="true">
+		<level value="INFO" />
+	</logger>
+	<logger name="com.inetpsa.fwk.v3.action" additivity="true">
+		<level value="INFO" />
+	</logger>
+	<logger name="com.inetpsa.fwk.v3.security" additivity="true">
+		<level value="INFO" />
+	</logger>
+	<logger name="com.inetpsa.fwk.v3.i18n.services" additivity="true">
+		<level value="INFO" />
+	</logger>
+	<logger name="com.inetpsa.fwk.v3.service" additivity="true">
+		<level value="INFO" />
+		<appender-ref ref="ConsoleOut" />
+	</logger>
+	
+	
+	<!-- Application logger -->
+	<logger name="com.inetpsa.whs" additivity="true">
+		<level value="DEBUG" />
+	</logger>
+
+<!-- 
+	<logger name="org.dozer" additivity="true">
+		<level value="DEBUG"></level>
+		<appender-ref ref="ConsoleOut"/>
+	</logger>
+ -->
+
+	<logger name="com.inetpsa.cxl" additivity="true">
+		<level value="info"></level>
+		<appender-ref ref="ConsoleOut"/>
+	</logger>
+
+	<!-- ROOT LOGGER -->
+	<root>
+		<priority value="WARN" />
+		<appender-ref ref="ConsoleErr" />
+		<appender-ref ref="logInFileTrace" />
+	</root>
+	
+</log4j:configuration>
+
